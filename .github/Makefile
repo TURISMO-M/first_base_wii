@@ -1,3 +1,7 @@
+# Define source folder and build parameters
+SOURCES		:=	source
+LIBS		:=	-lwiiuse -lbte -logc -lm
+
 ifneq ($(BUILD),$(notdir $(CURDIR)))
 export OUTPUT	:=	$(CURDIR)/boot
 export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir))
@@ -30,4 +34,3 @@ $(OUTPUT).elf: $(OFILES)
 -include $(DEPENDS)
 
 endif
-
