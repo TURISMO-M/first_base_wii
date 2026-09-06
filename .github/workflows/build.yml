@@ -17,13 +17,13 @@ jobs:
 
       - name: Compile Wii App
         run: |
-          make DEVKITPRO=/opt/devkitpro DEVKITPPC=/opt/devkitpro/devkitPPC
+          source /etc/profile.d/devkit-env.sh
+          make
 
       - name: Upload Compiled Binary
         uses: actions/upload-artifact@v4
         with:
           name: wii-boot-file
           path: |
-            boot.dol
-            boot.elf
             *.dol
+            *.elf
