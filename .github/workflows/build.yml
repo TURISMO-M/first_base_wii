@@ -17,17 +17,22 @@ jobs:
 
       - name: Compile Wii App
         run: |
+          source /opt/devkitpro/devkitPPC/PowerPC_Operational_Environment.sh || true
           export DEVKITPRO=/opt/devkitpro
-          export DEVKITPPC=/opt/devkitpro/devkitPPC
-          export PATH=$DEVKITPPC/bin:$DEVKITPRO/portlibs/wii/bin:$PATH
-          make BUILD=build
+          export DEVKITPPC=$DEVKITPRO/devkitPPC
+          export PATH=$DEVKITPPC/bin:$DEVKITPRO/tools/bin:$PATH
+          
+          # Find directory containing Makefile if nested
+          if [ -f "first_base_wii/Makefile" ]; then
+            cd first_base_wii
+          fi
+          
+          make -f Makefile
 
       - name: Upload Compiled Binary
         uses: actions/upload-artifact@v4
         with:
           name: wii-boot-file
           path: |
-            build/*.dol
-            build/*.elf
-            *.dol
-            *.elf
+            **/*.dol
+            **/*.elf
