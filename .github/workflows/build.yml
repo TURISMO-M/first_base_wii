@@ -16,16 +16,18 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Compile Wii App
-        env:
-          DEVKITPRO: /opt/devkitpro
-          DEVKITPPC: /opt/devkitpro/devkitPPC
         run: |
-          make
+          export DEVKITPRO=/opt/devkitpro
+          export DEVKITPPC=/opt/devkitpro/devkitPPC
+          export PATH=$DEVKITPPC/bin:$DEVKITPRO/portlibs/wii/bin:$PATH
+          make BUILD=build
 
       - name: Upload Compiled Binary
         uses: actions/upload-artifact@v4
         with:
           name: wii-boot-file
           path: |
-            **/*.dol
-            **/*.elf
+            build/*.dol
+            build/*.elf
+            *.dol
+            *.elf
