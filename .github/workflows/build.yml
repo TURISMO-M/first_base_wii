@@ -15,27 +15,18 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Debug Workspace
-        run: |
-          ls -la
-          ls -la source || true
-
       - name: Compile Wii App
         run: |
           export DEVKITPRO=/opt/devkitpro
           export DEVKITPPC=$DEVKITPRO/devkitPPC
-          make
-
-      - name: Verify Output
-        run: |
-          ls -la
-          ls -la boot || true
+          make BUILD=build
 
       - name: Upload Compiled Binary
         uses: actions/upload-artifact@v4
         with:
           name: wii-boot-file
           path: |
-            *.dol
-            *.elf
-            boot/*
+            boot.dol
+            boot.elf
+            build/*.dol
+            build/*.elf
