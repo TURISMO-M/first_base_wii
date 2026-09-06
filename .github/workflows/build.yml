@@ -27,7 +27,5 @@ jobs:
         with:
           name: wii-boot-file
           path: |
-            boot.dol
-            boot.elf
-            *.dol
-            *.elf
+            **/*.dol
+            **/*.elf
