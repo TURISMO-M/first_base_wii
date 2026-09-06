@@ -26,3 +26,5 @@ jobs:
           path: |
             boot.elf
             boot.dol
+            boot/*.elf
+            boot/*.dol
